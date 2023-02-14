@@ -10,6 +10,7 @@ public class Player implements Entity{
 
     @Override
     public void changeHP(int change) {
+
         double bla = change/(0.2*armorPT);
         playHP = playHP + (int)(bla);
     }
