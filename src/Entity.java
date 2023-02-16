@@ -3,5 +3,5 @@ public interface Entity {
 
         void changeHP(int change);
 
-        int[] calDamage(EntityDecorator Man);
+       int[] calDamage();//Parameters deleted as they were not needed.
 }

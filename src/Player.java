@@ -1,12 +1,15 @@
+/*
+Sprites: At least one small sprite for each player class.(Mage, Rogue, and Warrior)
+ */
 public class Player implements Entity{
 
     int playHP;
     int playMP = 100;
     int armorPT;
-    int playLvL;
     Weapon eqWeapon;
     Armor eqArmor;//For now, there will only be one equipable armor piece. Rather than a "Helmet","Gauntlet","Shield" etc...
     String playClass = "default";//Other Player classes are yet to be created. So this is just a placeholder.
+    int spriteNum;//Just a placeholder for now as we do not yet know assigning sprites to entities will work.
 
     @Override
     public void changeHP(int change) {
@@ -16,7 +19,7 @@ public class Player implements Entity{
     }
 
     @Override
-    public int[] calDamage(EntityDecorator Man) {
+    public int[] calDamage() {
 
         if (eqWeapon.weaponType == "sword"){
             return calSwordAtk();
@@ -41,21 +44,22 @@ public class Player implements Entity{
     //--------------------Determine attack strength Methods--------------------
     public int[] calSwordAtk(){
         int[] endDam = new int[1];
-        endDam[0] = eqWeapon.calItemDamage()+(playLvL*8);
+        endDam[0] = eqWeapon.calItemDamage();
         return endDam;
     }
     public int[] calDaggerAtk(){
         int[] endDam = new int[2];
-        endDam[0] = eqWeapon.calItemDamage()+(playLvL*8);
-        endDam[1] = eqWeapon.calItemDamage()+(playLvL*8);
+        endDam[0] = eqWeapon.calItemDamage();
+        endDam[1] = eqWeapon.calItemDamage();
         return endDam;
     }
     public int[] calMagicAtk(){//If player MP is not sufficient, attack damage will be reduced to 40%.
         int[] endDam = new int[1];
         if (playMP >= 10){
-            endDam[0] = eqWeapon.calItemDamage()+(playLvL*8);
+            endDam[0] = eqWeapon.calItemDamage();
+            playMP = playMP - 10;
         } else  {
-            endDam[0] = (int)((eqWeapon.calItemDamage()+(playLvL*8))*0.4);
+            endDam[0] = (int)((eqWeapon.calItemDamage())*0.4);
         }
         return endDam;
     }
